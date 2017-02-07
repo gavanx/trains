@@ -5,6 +5,6 @@ import io.gavan.trains.model.Town;
 /**
  * Created by gavan on 17-2-6.
  */
-public interface ITownFactory {
+public interface ITownRegistry {
     Town get(char id);
 }

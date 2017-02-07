@@ -1,7 +1,7 @@
 package io.gavan.trains.factory.impl;
 
 import io.gavan.trains.factory.IRailroadFactory;
-import io.gavan.trains.factory.ITownFactory;
+import io.gavan.trains.factory.ITownRegistry;
 import io.gavan.trains.model.Railroad;
 import io.gavan.trains.model.Track;
 
@@ -13,13 +13,13 @@ import java.util.List;
  */
 public class RailroadFactory implements IRailroadFactory {
     @Override
-    public Railroad create() {//TODO:
-        ITownFactory townFactory = new TownFactory();
+    public Railroad create() {//TODO:ITownRegistry townRegistry, String data
+        ITownRegistry townRegistry = new TownRegistry();
         List<Track> tracks = new ArrayList<Track>();
         String data = "AB5, BC4, CD8, DC8, DE6, AD5, CE2, EB3, AE7";
         String[] rawTracks = data.split(", ");
         for (String rawTrack : rawTracks) {
-            tracks.add(new Track(townFactory.get(rawTrack.charAt(0)), townFactory.get(rawTrack.charAt(1)), Integer.parseInt(rawTrack.substring(2))));
+            tracks.add(new Track(townRegistry.get(rawTrack.charAt(0)), townRegistry.get(rawTrack.charAt(1)), Integer.parseInt(rawTrack.substring(2))));
         }
         return new Railroad(tracks);
     }

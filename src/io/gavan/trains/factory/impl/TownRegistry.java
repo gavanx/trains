@@ -1,6 +1,6 @@
 package io.gavan.trains.factory.impl;
 
-import io.gavan.trains.factory.ITownFactory;
+import io.gavan.trains.factory.ITownRegistry;
 import io.gavan.trains.model.Town;
 
 import java.util.HashMap;
@@ -9,10 +9,10 @@ import java.util.Map;
 /**
  * Created by gavan on 17-2-6.
  */
-public class TownFactory implements ITownFactory {
+public class TownRegistry implements ITownRegistry {
     private Map<Character, Town> towns;
 
-    public TownFactory() {
+    public TownRegistry() {
         this.towns = new HashMap<Character, Town>();
     }
 
