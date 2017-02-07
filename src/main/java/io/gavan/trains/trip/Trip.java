@@ -2,6 +2,7 @@ package io.gavan.trains.trip;
 
 import io.gavan.trains.model.Railroad;
 import io.gavan.trains.model.Town;
+import io.gavan.trains.model.Track;
 import io.gavan.trains.service.IRailroadService;
 
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import java.util.List;
  */
 public class Trip {
     private List<Town> towns;
+    private int distance = 0;
 
     public Trip(Town from) {
         this.towns = new ArrayList<Town>();
@@ -22,8 +24,9 @@ public class Trip {
         this.towns = towns;
     }
 
-    public void add(Town next) {
-        this.towns.add(next);
+    public void add(Track track) {
+        this.towns.add(track.getTo());
+        this.distance += track.getDistance();
     }
 
     public Town getFrom() {
@@ -42,7 +45,7 @@ public class Trip {
         return this.towns.size() - 1;
     }
 
-    public Town[] getAllTowns(Town end){
+    public Town[] getAllTowns(Town end) {//no use
         List<Town> list = this.towns;
         Town[] towns = new Town[list.size() + 1];
         towns = list.toArray(towns);
@@ -50,13 +53,15 @@ public class Trip {
         return towns;
     }
 
-    public int calculateDistance(Town end, IRailroadService railroadService, Railroad railroad){
-        Town[] towns = this.getAllTowns(end);
-        return railroadService.getRouteDistance(railroad, towns);
+    public int calculateDistance(Track track) {
+//        Town[] towns = this.getAllTowns(end);
+//        return railroadService.getRouteDistance(railroad, towns);
+        return this.distance + track.getDistance();
     }
 
     public Trip copy() {
         Trip t = new Trip(new ArrayList<Town>(this.towns));
+        t.distance = this.distance;
         return t;
     }
 

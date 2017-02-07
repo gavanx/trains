@@ -1,6 +1,7 @@
 package io.gavan.trains.trip.filter;
 
 import io.gavan.trains.model.Town;
+import io.gavan.trains.model.Track;
 import io.gavan.trains.service.travel.ShortestDistanceTravelCallback;
 import io.gavan.trains.trip.Trip;
 
@@ -17,13 +18,13 @@ public class ShortestDistanceTripFilter implements ITripFilter {
     }
 
     @Override
-    public TripFilterResult accept(Trip trip, Town next) {//TODO: refactor: CompositeTripFilter with NoDuplicateTripFilter
+    public TripFilterResult accept(Trip trip, Track track) {//TODO: refactor: CompositeTripFilter with NoDuplicateTripFilter
         List<Town> towns = trip.getTowns();
-        boolean duplicate = towns.size() > 1 && towns.subList(1, towns.size() - 1).contains(next);
+        boolean duplicate = towns.size() > 1 && towns.subList(1, towns.size() - 1).contains(track.getTo());
         if (!duplicate) {
             int minDistance = this.travelCallback.getResult();
             if (minDistance > 0) {
-                int distance = this.travelCallback.getDistance(trip, next);
+                int distance = trip.calculateDistance(track);
                 if (distance > minDistance) {//branch cutting of larger distance
                     duplicate = true;
                 }

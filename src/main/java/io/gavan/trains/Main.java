@@ -30,7 +30,7 @@ public class Main {
 
     private static void solveTripCountProblemsLessDistance(IRailroadService railroadService, ITownRegistry townRegistry, Railroad railroad) {
         Town c = townRegistry.get('C');
-        outputTripCount(10, railroadService, railroad, c, c, new LimitDistanceTripFilter(30, railroadService, railroad));
+        outputTripCount(10, railroadService, railroad, c, c, new LimitDistanceTripFilter(30));
     }
 
 

@@ -1,6 +1,6 @@
 package io.gavan.trains.trip.filter;
 
-import io.gavan.trains.model.Town;
+import io.gavan.trains.model.Track;
 import io.gavan.trains.trip.Trip;
 
 /**
@@ -20,7 +20,7 @@ public class LimitStopsTripFilter implements ITripFilter {
     }
 
     @Override
-    public TripFilterResult accept(Trip trip, Town next) {
+    public TripFilterResult accept(Trip trip, Track track) {
         int stops = trip.getStops() + 1;
         return new TripFilterResult(stops >= this.minStops && stops <= this.maxStops, stops >= this.maxStops);
     }

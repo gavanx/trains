@@ -70,16 +70,16 @@ public class RailroadService implements IRailroadService {
             tracks = map.get(nextFrom);// tracks from current last town
             if (tracks != null) {
                 for (Track track : tracks) {
-                    tripFilterResult = tripFilter.accept(trip, track.getTo());
+                    tripFilterResult = tripFilter.accept(trip, track);
                     if (to.equals(track.getTo()) && tripFilterResult.isAccepted()) {
-                        travelCallback.onAccepted(trip, to);
+                        travelCallback.onAccepted(trip, track);
                     }
 
                     if (tripFilterResult.isFinished()) {
                         continue;
                     } else {
                         newTrip = trip.copy();
-                        newTrip.add(track.getTo());
+                        newTrip.add(track);
                         trips.add(newTrip);
                     }
                 }
@@ -96,7 +96,7 @@ public class RailroadService implements IRailroadService {
 
     @Override
     public int getShortestDistance(Railroad railroad, Town from, Town to) {
-        ShortestDistanceTravelCallback travelCallback = new ShortestDistanceTravelCallback(this, railroad);
+        ShortestDistanceTravelCallback travelCallback = new ShortestDistanceTravelCallback();
         travel(railroad, from, to, new ShortestDistanceTripFilter(travelCallback), travelCallback);
         return travelCallback.getResult();
     }
