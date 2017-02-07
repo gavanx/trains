@@ -4,6 +4,14 @@ import io.gavan.trains.model.Railroad;
 import io.gavan.trains.model.Town;
 import io.gavan.trains.model.Track;
 import io.gavan.trains.service.*;
+import io.gavan.trains.service.travel.ITravelCallback;
+import io.gavan.trains.service.travel.ShortestDistanceTravelCallback;
+import io.gavan.trains.service.travel.TripCountTravelCallback;
+import io.gavan.trains.trip.Trip;
+import io.gavan.trains.trip.filter.ITripFilter;
+import io.gavan.trains.trip.filter.NoDuplicateTripFilter;
+import io.gavan.trains.trip.filter.ShortestDistanceTripFilter;
+import io.gavan.trains.trip.filter.TripFilterResult;
 
 import java.util.ArrayDeque;
 import java.util.List;
@@ -45,58 +53,6 @@ public class RailroadService implements IRailroadService {
         return distance;
     }
 
-    private static interface ITravelCallback {
-        void onAccepted(Trip trip, Town next);
-
-        int getResult();
-    }
-
-    private static class TripCountTravelCallback implements ITravelCallback {
-        private int tripCount = 0;
-
-        @Override
-        public void onAccepted(Trip trip, Town next) {
-            this.tripCount++;
-            //TODO: cache the trip result if need to print the route
-            System.out.println("debug tripCount:" + trip + next);//debug
-        }
-
-        @Override
-        public int getResult() {
-            return this.tripCount;
-        }
-    }
-
-    private static class ShortestDistanceTravelCallback implements ITravelCallback {
-        private IRailroadService railroadService;
-        private Railroad railroad;
-        private int distance;
-
-        public ShortestDistanceTravelCallback(RailroadService railroadService, Railroad railroad) {
-            this.railroadService = railroadService;
-            this.railroad = railroad;
-            this.distance = INVALID_DISTANCE_VALUE;
-        }
-
-        @Override
-        public void onAccepted(Trip trip, Town next) {
-            List<Town> list = trip.getTowns();
-            Town[] towns = new Town[list.size() + 1];
-            towns = list.toArray(towns);
-            towns[list.size()] = next;
-            int d = this.railroadService.getRouteDistance(this.railroad, towns);
-            System.out.println("debug shortest:" + trip + next + " " + d);//debug
-            if (this.distance < 0 || this.distance > d) {
-                this.distance = d;
-            }
-        }
-
-        @Override
-        public int getResult() {
-            return this.distance;
-        }
-    }
-
     private void travel(Railroad railroad, Town from, Town to, ITripFilter tripFilter, ITravelCallback travelCallback) {
         Map<Town, List<Track>> map = railroad.getTracks();
         List<Track> tracks = null;
@@ -115,7 +71,7 @@ public class RailroadService implements IRailroadService {
             if (tracks != null) {
                 for (Track track : tracks) {
                     tripFilterResult = tripFilter.accept(trip, track.getTo());
-                    if (tripFilterResult.isAccepted() && to.equals(track.getTo())) {
+                    if (to.equals(track.getTo()) && tripFilterResult.isAccepted()) {
                         travelCallback.onAccepted(trip, to);
                     }
 
@@ -141,7 +97,7 @@ public class RailroadService implements IRailroadService {
     @Override
     public int getShortestDistance(Railroad railroad, Town from, Town to) {
         ShortestDistanceTravelCallback travelCallback = new ShortestDistanceTravelCallback(this, railroad);
-        travel(railroad, from, to, new NoDuplicateTripFilter(), travelCallback);
+        travel(railroad, from, to, new ShortestDistanceTripFilter(travelCallback), travelCallback);
         return travelCallback.getResult();
     }
 }

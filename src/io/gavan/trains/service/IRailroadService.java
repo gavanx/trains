@@ -2,6 +2,7 @@ package io.gavan.trains.service;
 
 import io.gavan.trains.model.Railroad;
 import io.gavan.trains.model.Town;
+import io.gavan.trains.trip.filter.ITripFilter;
 
 /**
  * Created by gavan on 17-2-7.

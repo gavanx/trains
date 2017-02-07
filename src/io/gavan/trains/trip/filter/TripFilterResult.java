@@ -1,4 +1,4 @@
-package io.gavan.trains.service;
+package io.gavan.trains.trip.filter;
 
 /**
  * Created by gavan on 17-2-7.

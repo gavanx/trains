@@ -1,6 +1,7 @@
-package io.gavan.trains.service;
+package io.gavan.trains.trip.filter;
 
 import io.gavan.trains.model.Town;
+import io.gavan.trains.trip.Trip;
 
 import java.util.List;
 

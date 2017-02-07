@@ -1,9 +1,8 @@
-package io.gavan.trains.service;
+package io.gavan.trains.trip;
 
 import io.gavan.trains.model.Town;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -39,6 +38,14 @@ public class Trip {
 
     public int getStops() {
         return this.towns.size() - 1;
+    }
+
+    public Town[] getAllTowns(Town end){
+        List<Town> list = this.towns;
+        Town[] towns = new Town[list.size() + 1];
+        towns = list.toArray(towns);
+        towns[list.size()] = end;
+        return towns;
     }
 
     public Trip copy() {
