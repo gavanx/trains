@@ -20,7 +20,22 @@ public class Main {
         Railroad railroad = railroadFactory.create();
 
         //solveDistanceProblems(railroadService, townRegistry, railroad);
-        solveTripCountProblems(railroadService, townRegistry, railroad);
+        //solveTripCountProblems(railroadService, townRegistry, railroad);
+        solveShortestDistanceProblems(railroadService, townRegistry, railroad);
+    }
+
+    private static void solveShortestDistanceProblems(IRailroadService railroadService, ITownRegistry townRegistry, Railroad railroad) {
+        Town a = townRegistry.get('A');
+        Town b = townRegistry.get('B');
+        Town c = townRegistry.get('C');
+        outputShortestDistance(railroadService, railroad, a, c);
+        outputShortestDistance(railroadService, railroad, b, b);
+    }
+
+    private static void outputShortestDistance(IRailroadService railroadService, Railroad railroad, Town from, Town to) {
+        int distance = railroadService.getShortestDistance(railroad, from, to);
+        System.out.print("distance " + from.getId() + "-" + to.getId() + ":\t\t");//debug
+        System.out.println(distance);
     }
 
     private static void solveTripCountProblems(IRailroadService railroadService, ITownRegistry townRegistry, Railroad railroad) {

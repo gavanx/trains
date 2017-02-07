@@ -110,4 +110,9 @@ public class RailroadService implements IRailroadService {
         travel(railroad, from, to, tripFilter, travelCallback);
         return travelCallback.getResult();
     }
+
+    @Override
+    public int getShortestDistance(Railroad railroad, Town from, Town to) {
+        return 1111;
+    }
 }

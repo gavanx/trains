@@ -13,4 +13,6 @@ public interface IRailroadService {
     int getRouteDistance(Railroad railroad, Town[] route);
 
     int getTripCount(Railroad railroad, Town from, Town to, ITripFilter tripFilter);
+
+    int getShortestDistance(Railroad railroad, Town from, Town to);
 }
