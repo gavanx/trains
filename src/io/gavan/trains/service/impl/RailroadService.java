@@ -3,10 +3,7 @@ package io.gavan.trains.service.impl;
 import io.gavan.trains.model.Railroad;
 import io.gavan.trains.model.Town;
 import io.gavan.trains.model.Track;
-import io.gavan.trains.service.IRailroadService;
-import io.gavan.trains.service.ITripFilter;
-import io.gavan.trains.service.Trip;
-import io.gavan.trains.service.TripFilterResult;
+import io.gavan.trains.service.*;
 
 import java.util.ArrayDeque;
 import java.util.List;
@@ -61,12 +58,42 @@ public class RailroadService implements IRailroadService {
         public void onAccepted(Trip trip, Town next) {
             this.tripCount++;
             //TODO: cache the trip result if need to print the route
-            System.out.println("debug:" + trip + next);//debug
+            System.out.println("debug tripCount:" + trip + next);//debug
         }
 
         @Override
         public int getResult() {
             return this.tripCount;
+        }
+    }
+
+    private static class ShortestDistanceTravelCallback implements ITravelCallback {
+        private IRailroadService railroadService;
+        private Railroad railroad;
+        private int distance;
+
+        public ShortestDistanceTravelCallback(RailroadService railroadService, Railroad railroad) {
+            this.railroadService = railroadService;
+            this.railroad = railroad;
+            this.distance = INVALID_DISTANCE_VALUE;
+        }
+
+        @Override
+        public void onAccepted(Trip trip, Town next) {
+            List<Town> list = trip.getTowns();
+            Town[] towns = new Town[list.size() + 1];
+            towns = list.toArray(towns);
+            towns[list.size()] = next;
+            int d = this.railroadService.getRouteDistance(this.railroad, towns);
+            System.out.println("debug shortest:" + trip + next + " " + d);//debug
+            if (this.distance < 0 || this.distance > d) {
+                this.distance = d;
+            }
+        }
+
+        @Override
+        public int getResult() {
+            return this.distance;
         }
     }
 
@@ -113,6 +140,8 @@ public class RailroadService implements IRailroadService {
 
     @Override
     public int getShortestDistance(Railroad railroad, Town from, Town to) {
-        return 1111;
+        ShortestDistanceTravelCallback travelCallback = new ShortestDistanceTravelCallback(this, railroad);
+        travel(railroad, from, to, new NoDuplicateTripFilter(), travelCallback);
+        return travelCallback.getResult();
     }
 }

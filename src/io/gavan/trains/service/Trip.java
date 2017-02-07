@@ -33,6 +33,10 @@ public class Trip {
         return this.towns.get(this.towns.size() - 1);
     }
 
+    public List<Town> getTowns() {
+        return this.towns;
+    }
+
     public int getStops() {
         return this.towns.size() - 1;
     }
