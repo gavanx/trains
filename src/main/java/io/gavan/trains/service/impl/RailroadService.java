@@ -3,13 +3,12 @@ package io.gavan.trains.service.impl;
 import io.gavan.trains.model.Railroad;
 import io.gavan.trains.model.Town;
 import io.gavan.trains.model.Track;
-import io.gavan.trains.service.*;
+import io.gavan.trains.service.IRailroadService;
 import io.gavan.trains.service.travel.ITravelCallback;
 import io.gavan.trains.service.travel.ShortestDistanceTravelCallback;
 import io.gavan.trains.service.travel.TripCountTravelCallback;
 import io.gavan.trains.trip.Trip;
 import io.gavan.trains.trip.filter.ITripFilter;
-import io.gavan.trains.trip.filter.NoDuplicateTripFilter;
 import io.gavan.trains.trip.filter.ShortestDistanceTripFilter;
 import io.gavan.trains.trip.filter.TripFilterResult;
 

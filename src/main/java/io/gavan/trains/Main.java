@@ -7,10 +7,10 @@ import io.gavan.trains.factory.impl.TownRegistry;
 import io.gavan.trains.model.Railroad;
 import io.gavan.trains.model.Town;
 import io.gavan.trains.service.IRailroadService;
+import io.gavan.trains.service.impl.RailroadService;
 import io.gavan.trains.trip.filter.ITripFilter;
 import io.gavan.trains.trip.filter.LimitDistanceTripFilter;
 import io.gavan.trains.trip.filter.LimitStopsTripFilter;
-import io.gavan.trains.service.impl.RailroadService;
 
 public class Main {
 

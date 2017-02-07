@@ -1,6 +1,5 @@
 package io.gavan.trains.trip.filter;
 
-import io.gavan.trains.model.Town;
 import io.gavan.trains.model.Track;
 import io.gavan.trains.trip.Trip;
 
