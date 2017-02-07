@@ -11,3 +11,6 @@ In the sample data below, there are three such trips: A to C (via B,C,D); A to C
 
 The length of the shortest route (in terms of distance to travel) from A to C.
 The length of the shortest route (in terms of distance to travel) from B to B.
+
+The number of different routes from C to C with a distance of less than 30.  
+In the sample data, the trips are: CDC, CEBC, CEBCDC, CDCEBC, CDEBC, CEBCEBC, CEBCEBCEBC.

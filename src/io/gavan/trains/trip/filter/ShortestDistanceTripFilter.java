@@ -1,8 +1,6 @@
 package io.gavan.trains.trip.filter;
 
 import io.gavan.trains.model.Town;
-import io.gavan.trains.service.impl.RailroadService;
-import io.gavan.trains.service.travel.ITravelCallback;
 import io.gavan.trains.service.travel.ShortestDistanceTravelCallback;
 import io.gavan.trains.trip.Trip;
 

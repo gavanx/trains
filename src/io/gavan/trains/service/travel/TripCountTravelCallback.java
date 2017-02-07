@@ -1,7 +1,6 @@
 package io.gavan.trains.service.travel;
 
 import io.gavan.trains.model.Town;
-import io.gavan.trains.service.impl.RailroadService;
 import io.gavan.trains.trip.Trip;
 
 /**

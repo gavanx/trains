@@ -8,6 +8,7 @@ import io.gavan.trains.model.Railroad;
 import io.gavan.trains.model.Town;
 import io.gavan.trains.service.IRailroadService;
 import io.gavan.trains.trip.filter.ITripFilter;
+import io.gavan.trains.trip.filter.LimitDistanceTripFilter;
 import io.gavan.trains.trip.filter.LimitStopsTripFilter;
 import io.gavan.trains.service.impl.RailroadService;
 
@@ -21,8 +22,15 @@ public class Main {
 
         //solveDistanceProblems(railroadService, townRegistry, railroad);
         //solveTripCountProblems(railroadService, townRegistry, railroad);
-        solveShortestDistanceProblems(railroadService, townRegistry, railroad);
+        //solveShortestDistanceProblems(railroadService, townRegistry, railroad);
+        solveTripCountProblemsLess(railroadService, townRegistry, railroad);
     }
+
+    private static void solveTripCountProblemsLess(IRailroadService railroadService, ITownRegistry townRegistry, Railroad railroad) {
+        Town c = townRegistry.get('C');
+        outputTripCount(railroadService, railroad, c, c, new LimitDistanceTripFilter(30, railroadService, railroad));
+    }
+
 
     private static void solveShortestDistanceProblems(IRailroadService railroadService, ITownRegistry townRegistry, Railroad railroad) {
         Town a = townRegistry.get('A');

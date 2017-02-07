@@ -1,6 +1,8 @@
 package io.gavan.trains.trip;
 
+import io.gavan.trains.model.Railroad;
 import io.gavan.trains.model.Town;
+import io.gavan.trains.service.IRailroadService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +48,11 @@ public class Trip {
         towns = list.toArray(towns);
         towns[list.size()] = end;
         return towns;
+    }
+
+    public int calculateDistance(Town end, IRailroadService railroadService, Railroad railroad){
+        Town[] towns = this.getAllTowns(end);
+        return railroadService.getRouteDistance(railroad, towns);
     }
 
     public Trip copy() {
