@@ -22,7 +22,7 @@ public class ShortestDistanceTravelCallback implements ITravelCallback {
     @Override
     public void onAccepted(Trip trip, Town next) {
         int d = this.getDistance(trip, next);
-        System.out.println("debug shortest:" + trip + next + " " + d);//debug
+//        System.out.println("debug shortest:" + trip + next + " " + d);//debug
         if (this.distance < 0 || this.distance > d) {
             this.distance = d;
         }

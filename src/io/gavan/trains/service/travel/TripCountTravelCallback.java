@@ -13,7 +13,7 @@ public class TripCountTravelCallback implements ITravelCallback {
     public void onAccepted(Trip trip, Town next) {
         this.tripCount++;
         //TODO: cache the trip result if need to print the route
-        System.out.println("debug tripCount:" + trip + next);//debug
+//        System.out.println("debug tripCount:" + trip + next);//debug
     }
 
     @Override
