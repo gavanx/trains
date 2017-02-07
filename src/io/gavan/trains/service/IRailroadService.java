@@ -1,5 +1,6 @@
 package io.gavan.trains.service;
 
+import io.gavan.trains.model.Railroad;
 import io.gavan.trains.model.Town;
 
 /**
@@ -9,5 +10,5 @@ public interface IRailroadService {
     static int INVALID_DISTANCE_VALUE = -1;
     static String INVALID_DISTANCE_OUTPUT = "NO SUCH ROUTE";
 
-    int getRouteDistance(Town[] route);
+    int getRouteDistance(Railroad railroad, Town[] route);
 }
