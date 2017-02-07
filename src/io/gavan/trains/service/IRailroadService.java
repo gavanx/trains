@@ -7,7 +7,7 @@ import io.gavan.trains.model.Town;
  */
 public interface IRailroadService {
     static int INVALID_DISTANCE_VALUE = -1;
-    static String INVALID_DISTANCE_OUTPUT = "NO ROUTE";
+    static String INVALID_DISTANCE_OUTPUT = "NO SUCH ROUTE";
 
-    int getRouteDistance(Town from, Town to);
+    int getRouteDistance(Town[] route);
 }

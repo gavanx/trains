@@ -8,7 +8,7 @@ import io.gavan.trains.service.IRailroadService;
  */
 public class RailroadService implements IRailroadService {
     @Override
-    public int getRouteDistance(Town from, Town to) {
+    public int getRouteDistance(Town[] route) {
         return 111;
     }
 }
