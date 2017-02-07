@@ -11,4 +11,6 @@ public interface IRailroadService {
     static String INVALID_DISTANCE_OUTPUT = "NO SUCH ROUTE";
 
     int getRouteDistance(Railroad railroad, Town[] route);
+
+    int getTripCount(Town from, Town to, ITripFilter tripFilter);
 }

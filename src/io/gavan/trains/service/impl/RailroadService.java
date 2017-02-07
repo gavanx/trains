@@ -4,6 +4,7 @@ import io.gavan.trains.model.Railroad;
 import io.gavan.trains.model.Town;
 import io.gavan.trains.model.Track;
 import io.gavan.trains.service.IRailroadService;
+import io.gavan.trains.service.ITripFilter;
 
 import java.util.List;
 import java.util.Map;
@@ -41,5 +42,10 @@ public class RailroadService implements IRailroadService {
             }
         }
         return distance;
+    }
+
+    @Override
+    public int getTripCount(Town from, Town to, ITripFilter tripFilter) {
+        return 0;
     }
 }
