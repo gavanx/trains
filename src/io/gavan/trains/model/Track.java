@@ -26,4 +26,9 @@ public class Track {
     public int getDistance() {
         return distance;
     }
+
+    @Override
+    public String toString() {
+        return from + "-" + to + " " + this.distance;
+    }
 }

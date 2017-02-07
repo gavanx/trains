@@ -6,5 +6,5 @@ import io.gavan.trains.model.Town;
  * Created by gavan on 17-2-7.
  */
 public interface ITripFilter {
-    boolean accept(Town from, Town to, int stops);
+    TripFilterResult accept(Trip trip, Town next);
 }

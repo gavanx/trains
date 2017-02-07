@@ -19,20 +19,20 @@ public class Main {
         IRailroadFactory railroadFactory = new RailroadFactory();
         Railroad railroad = railroadFactory.create();
 
-        solveDistanceProblems(railroadService, townRegistry, railroad);
-        solveTripCountProblems(railroadService, townRegistry);
+        //solveDistanceProblems(railroadService, townRegistry, railroad);
+        solveTripCountProblems(railroadService, townRegistry, railroad);
     }
 
-    private static void solveTripCountProblems(IRailroadService railroadService, ITownRegistry townRegistry) {
+    private static void solveTripCountProblems(IRailroadService railroadService, ITownRegistry townRegistry, Railroad railroad) {
         Town a = townRegistry.get('A');
         Town c = townRegistry.get('C');
-        outputTripCount(railroadService, c, c, new LimitStopsTripFilter(3, 1));
-        outputTripCount(railroadService, a, c, new LimitStopsTripFilter(4));
+        outputTripCount(railroadService, railroad, c, c, new LimitStopsTripFilter(3, 1));
+        outputTripCount(railroadService, railroad, a, c, new LimitStopsTripFilter(4));
     }
 
-    private static void outputTripCount(IRailroadService railroadService, Town from, Town to, ITripFilter tripFilter) {
-        int tripCount = railroadService.getTripCount(from, to, tripFilter);
-        System.out.print("outputTripCount " + from.getId() + "-" + to.getId() + ":\t\t");//debug
+    private static void outputTripCount(IRailroadService railroadService, Railroad railroad, Town from, Town to, ITripFilter tripFilter) {
+        int tripCount = railroadService.getTripCount(railroad, from, to, tripFilter);
+        System.out.print("trips " + from.getId() + "-" + to.getId() + ":\t\t");//debug
         System.out.println(tripCount);
     }
 

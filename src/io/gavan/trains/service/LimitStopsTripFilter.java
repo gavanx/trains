@@ -19,7 +19,8 @@ public class LimitStopsTripFilter implements ITripFilter {
     }
 
     @Override
-    public boolean accept(Town from, Town to, int stops) {
-        return stops >= this.minStops && stops <= this.maxStops;
+    public TripFilterResult accept(Trip trip, Town next) {
+        int stops = trip.getStops() + 1;
+        return new TripFilterResult(stops >= this.minStops && stops <= this.maxStops, stops >= this.maxStops);
     }
 }
