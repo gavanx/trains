@@ -15,8 +15,8 @@ import io.gavan.trains.service.impl.RailroadService;
 public class Main {
 
     public static void main(String[] args) {
-        String data = args.length > 2 ? args[1] : "AB5, BC4, CD8, DC8, DE6, AD5, CE2, EB3, AE7";
-        String split = args.length > 2 ? args[2] : ", ";
+        String data = args.length > 1 ? args[0] : "AB5, BC4, CD8, DC8, DE6, AD5, CE2, EB3, AE7";
+        String split = args.length > 1 ? args[1] : ", ";
         IRailroadService railroadService = new RailroadService();
         ITownRegistry townRegistry = new TownRegistry();
         IRailroadFactory railroadFactory = new RailroadFactory();
