@@ -8,3 +8,6 @@ The number of trips starting at C and ending at C with a maximum of 3 stops.  (3
 In the sample data below, there are two such trips: C-D-C (2 stops). and C-E-B-C (3 stops).
 The number of trips starting at A and ending at C with exactly 4 stops.  (4, 4)
 In the sample data below, there are three such trips: A to C (via B,C,D); A to C (via D,C,D); and A to C (via D,E,B).
+
+The length of the shortest route (in terms of distance to travel) from A to C.
+The length of the shortest route (in terms of distance to travel) from B to B.

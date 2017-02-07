@@ -48,9 +48,29 @@ public class RailroadService implements IRailroadService {
         return distance;
     }
 
-    @Override
-    public int getTripCount(Railroad railroad, Town from, Town to, ITripFilter tripFilter) {
-        int tripCount = 0;
+    private static interface ITravelCallback {
+        void onAccepted(Trip trip, Town next);
+
+        int getResult();
+    }
+
+    private static class TripCountTravelCallback implements ITravelCallback {
+        private int tripCount = 0;
+
+        @Override
+        public void onAccepted(Trip trip, Town next) {
+            this.tripCount++;
+            //TODO: cache the trip result if need to print the route
+            System.out.println("debug:" + trip + next);//debug
+        }
+
+        @Override
+        public int getResult() {
+            return this.tripCount;
+        }
+    }
+
+    private void travel(Railroad railroad, Town from, Town to, ITripFilter tripFilter, ITravelCallback travelCallback) {
         Map<Town, List<Track>> map = railroad.getTracks();
         List<Track> tracks = null;
 
@@ -69,9 +89,7 @@ public class RailroadService implements IRailroadService {
                 for (Track track : tracks) {
                     tripFilterResult = tripFilter.accept(trip, track.getTo());
                     if (tripFilterResult.isAccepted() && to.equals(track.getTo())) {
-                        tripCount++;
-                        //TODO: cache the trip result if need to print the route
-                        System.out.println("debug:" + trip + track.getTo());//debug
+                        travelCallback.onAccepted(trip, to);
                     }
 
                     if (tripFilterResult.isFinished()) {
@@ -84,6 +102,12 @@ public class RailroadService implements IRailroadService {
                 }
             }
         }
-        return tripCount;
+    }
+
+    @Override
+    public int getTripCount(Railroad railroad, Town from, Town to, ITripFilter tripFilter) {
+        TripCountTravelCallback travelCallback = new TripCountTravelCallback();
+        travel(railroad, from, to, tripFilter, travelCallback);
+        return travelCallback.getResult();
     }
 }
